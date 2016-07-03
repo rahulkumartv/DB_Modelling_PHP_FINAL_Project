@@ -1,0 +1,65 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `reset_training`()
+BEGIN
+  -- Empty table person
+  TRUNCATE person;
+  TRUNCATE class_member;
+  TRUNCATE team_member;
+  TRUNCATE document;
+  TRUNCATE class;
+  TRUNCATE team;
+  TRUNCATE project;
+  SET FOREIGN_KEY_CHECKS=1;
+  -- Reset its id counter
+  ALTER TABLE person AUTO_INCREMENT=1;
+  INSERT INTO person (person_id, first_name, last_name,address,zip_code,town,email,mobile_phone,phone,is_trainer,is_admin,password,picture_location,created_at,confirmed_at,confrmation_token,renew_password_token) VALUES
+  (1,'Prince', 'mathew','25 Rosa','94800','paris','askprince@gmail.com','0734567890','04544567623',false,false,'prince','',2015-08-13,2015-08-13,'',''),
+  (2, 'Rahul', 'kumar', '25 Rosa','94800','paris','rahul@gmail.com','0786541299','02344567621',false,false,'rahul','',2015-08-14,2015-08-14,'',''),
+  (3, 'giby', 'thomas', 'mank','686668','cochin','giby@gmail.com','0786761291','07344577611',false,false,'giby','',2015-08-21,2015-08-21,'',''),
+  (4, 'viby', 'thomas', '30 al-al','96756','dubai','viby@gmail.com','0726541265','07315577661',false,false,'viby','',2015-09-11,2015-09-11,'',''),
+  (5, 'praveen', 'mathew','mankuthel','686668','cochin','praveen@gmail.com','0711541287','07367577623',false,false,'praveen','',2015-09-09,2015-09-09,'',''),
+  (6,'pauma', 'paulose','ernakulam','686443','cochin','pauma@gmail.com','0734541289','06715577692',false,false,'pauma','',2015-10-23,2015-10-23,'',''),
+  (7, 'Oliver', 'Berthet','10, Rue Avenue','75600','paris','oli@gmail.com','0716541219','05315577601',true,false,'oliver','',2015-11-13,2015-11-13,'',''),
+  (8, 'Jean', 'Bonnet','12,Rue frank','72000','paris','jean@gmail.com','0716521292','07315577671',true,false,'jean','',2015-12-14,2015-12-14,'','');
+  
+  INSERT INTO class (class_id,name) VALUES
+   (1,"SE"),
+   (2,"CS");
+  
+  INSERT INTO team (team_id,project_id,owner_id,created_at,summary)VALUES
+	(1, 1,1,2015-08-13,''),
+    (2, 2,2,2015-08-14,''),
+    (3, 1,4,2015-08-13,''),
+    (4, 1,5,2015-08-14,'');
+  
+  INSERT INTO project (project_id,owner_id,class_id,title,created_at,deadline,subject) VALUES 
+  (1, 7,1,'SmartHome',2015-08-13,2016-04-13),
+  (2, 8,2,'SFM',2015-08-20,2015-11-08),
+  (3, 7,1,'ANM',2015-09-12,2016-02-10);
+  
+  INSERT INTO team_member (team_id,student_id) VALUES 
+  (1,1),
+  (1,2),
+  (1,3),
+  (1,7),
+  (2,4),
+  (2,5),
+  (2,6),
+  (2,8);
+  
+  INSERT INTO class_member (person_id,class_id) VALUES 
+  (1,1),
+  (2,1),
+  (3,1),
+  (4,2),
+  (5,2),
+  (6,2);
+  
+  INSERT INTO document (document_id,author_id,team_id,location,created_at,updated_at) VALUES 
+  (1,1,1,'',2015-11-08,2015-11-11),
+  (2,2,1,'',2015-11-08,2015-12-21),
+  (3,1,1,'',2015-11-08,2015-11-21),
+  (4,3,1,'',2015-11-08,2015-11-14),
+  (5,4,2,'',2015-11-08,2015-11-30),
+  (6,2,1,'',2015-11-08,2015-12-27),
+  (6,5,2,'',2015-11-08,2015-12-09);
+END
